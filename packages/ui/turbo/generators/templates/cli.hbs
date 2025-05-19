@@ -1,0 +1,19 @@
+#!/usr/bin/env node
+import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
+
+const argv = yargs(hideBin(process.argv))
+  .command(
+    '$0 <name>',
+    'Run the CLI command',
+    (yargs) => {
+      return yargs.positional('name', {
+        describe: 'Name argument for the CLI',
+        type: 'string',
+      });
+    },
+    (args) => {
+      console.log(`Hello from CLI tool: ${args.name}`);
+    }
+  )
+  .help().argv;
