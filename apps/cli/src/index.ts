@@ -5,7 +5,6 @@ import consola from 'consola';
 import { execa } from 'execa';
 import fs from 'fs-extra';
 import path from 'path';
-import gradient from 'gradient-string';
 import pc from 'picocolors';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
@@ -40,7 +39,7 @@ const runCLI = async (): Promise<void> => {
         process.exit(0);
     }
 
-    const destDir = path.join(__dirname, projectName.trim());
+    const destDir = path.join(process.cwd(), projectName.trim());
     if (fs.existsSync(destDir)) {
         const overwrite = await confirm({ message: 'Directory exists. Overwrite?' });
         if (!overwrite) {
@@ -50,6 +49,7 @@ const runCLI = async (): Promise<void> => {
             await fs.remove(destDir);
         }
     }
+
 
     try {
         const templateDir = path.join(TEMPLATE_ROOT, projectType);
